@@ -17,8 +17,13 @@ class Project extends Model
         'type_id'
     ];
 
-    public function type() {
+    public function type() { //la funzione si chiama al singolare perché è ONE type to MANY projects
         
         return $this->belongsTo(Type::class);
+    }
+
+    public function technologies() { //la funzione si chiama al plurale perché è MANY technologies to MANY projects
+        
+        return $this->belongsToMany(Technology::class);
     }
 }
