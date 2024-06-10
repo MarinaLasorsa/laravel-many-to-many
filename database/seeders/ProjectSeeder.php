@@ -39,7 +39,7 @@ class ProjectSeeder extends Seeder
 
             //da fare dopo il salvataggio per abbinare gli ids dei projects a quelli delle technologies:
             //prende ids a caso in numero random dall'array
-            $random_technologies_ids = $faker->randomElements($technologies_ids);
+            $random_technologies_ids = $faker->randomElements($technologies_ids, null);
             //li abbina all'id del project
             $project->technologies()->attach($random_technologies_ids);
         }

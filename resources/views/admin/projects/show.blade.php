@@ -12,6 +12,12 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{$project->type ? $project->type->name : "no type"}}</h6>
                 </div>
                 <div class="card-body">
+                    <ul class="d-flex list-unstyled gap-2">
+                        <li><p>Technologies used: </p></li>
+                        @foreach ($project->technologies as $technology)
+                        <li class="text-decoration-underline">{{$technology->name}}</li>
+                        @endforeach
+                    </ul>
                     <p class="card-text">{{$project->description}}</p>
                     <div class="d-flex">
                         <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-link card-link">Edit</a>
