@@ -31,6 +31,20 @@
                         </select>
                     </div>
 
+                    <div class="form-group mb-3">
+                        <p>Choose the technologies used:</p>
+                        @foreach($technologies as $technology)
+                        <div class="form-check">
+                            <!--input è checked se l'id della technology è già parte dell'array caricato in precedenza-->
+                            <!--attributo name è un array di ids-->
+                            <input @checked(in_array($technology->id, old('technologies', $project->technologies->pluck('id')->all()))) name="technologies[]" class="form-check-input" type="checkbox" value="{{$technology->id}}" id="technology-{{$technology->id}}">
+                            <label class="form-check-label" for="technology-{{$technology->id}}">
+                              {{$technology->name}}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>
                         <input type="text" name="slug" class="form-control" id="slug" placeholder="Project Slug" value="{{old('slug', $project->slug)}}">

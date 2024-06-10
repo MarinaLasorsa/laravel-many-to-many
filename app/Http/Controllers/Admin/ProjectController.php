@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Type;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -28,8 +29,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::orderBy('name', 'asc')->get();
+        $technologies = Technology::orderBy('name', 'asc')->get();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -60,6 +62,13 @@ class ProjectController extends Controller
 
         $project = Project::create($form_data);
 
+        //controllare che siano state inviate technologies
+        if ($request->has('technologies')) {
+
+            //aggiungere le technologies al nuovo project
+            $project->technologies()->attach($request->technologies);
+        }
+
         return to_route('admin.projects.show', $project);
 
     }
@@ -78,8 +87,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::orderBy('name', 'asc')->get();
+        $technologies = Technology::orderBy('name', 'asc')->get();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -90,6 +100,18 @@ class ProjectController extends Controller
         $form_data = $request->validated();
 
         $project->update($form_data);
+
+        //controllare che siano state inviate technologies
+        if ($request->has('technologies')) {
+
+            //sincronizzare le technologies del project
+            $project->technologies()->sync($request->technologies);
+
+        } else {
+
+            //se sono state deselezionate togli le technologies dal project
+            $project->technologies()->detach();
+        } 
 
         return to_route('admin.projects.show', $project);
     }
