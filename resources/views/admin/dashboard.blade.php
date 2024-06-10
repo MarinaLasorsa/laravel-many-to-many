@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-6">
+        <div class="col-4">
             <div class="card">
                 <div class="card-header">
                   Projects
@@ -34,7 +34,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
             <div class="card">
                 <div class="card-header">
                   Types
@@ -42,6 +42,17 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item"><a href="{{route('admin.types.index')}}" class="btn-link">See all types</a></li>
                   <li class="list-group-item"><a href="{{route('admin.types.create')}}" class="btn-link">Create a type</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                  Technologies
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><a href="{{route('admin.technologies.index')}}" class="btn-link">See all technologies</a></li>
+                  <li class="list-group-item"><a href="{{route('admin.technologies.create')}}" class="btn-link">Create a technology</a></li>
                 </ul>
             </div>
         </div>
